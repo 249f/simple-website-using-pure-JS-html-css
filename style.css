@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    color: white;
     
 }
 body{
@@ -71,4 +72,10 @@ body{
 }
 .yap p{
     margin: 35px 0px;
+}
+button{
+    color: #000000;
+}
+input{
+    color: #000000;
 }
