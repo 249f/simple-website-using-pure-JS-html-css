@@ -8,12 +8,19 @@
 <body>
     
     <script>
-        let x = {
-            "name": "ali",
-            age : 20,
-            class : "software engineering"
-        }
-        console.log(x.class)
+  class Car {
+    constructor(x,y,z){
+        this.name = x;
+        this.model = y;
+        this.year = z;
+    }
+    speed(){
+        let result = `fast ${this.name}`
+        return result
+    }
+  }
+  let car1 = new Car("Toyota","Hilux",2016)
+  console.log(car1.speed())
     </script>
 </body>
 </html>
