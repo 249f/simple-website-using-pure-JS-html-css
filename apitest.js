@@ -1,32 +1,37 @@
-let apidiv = document.getElementById("apidiv")
-let data;
-let data2 = []
-let tbody = document.getElementById("tbody")
-let request = new XMLHttpRequest
-request.open("GET","https://jsonplaceholder.typicode.com/posts")
-request.responseType = "json"
-request.send()
-request.onload = function(){
-    data = request.response
-    data2 = data
-    filltable()
-}
+// let apidiv = document.getElementById("apidiv")
+// let data;
+// let data2 = []
+// let tbody = document.getElementById("tbody")
 
-function filltable(){
-    let table = ``;
-    for(post of data2){
-        table+= `
-            <tr>
-                <td>${post.id}</td>
-                <td>${post.title}</td>
-                <td>${post.body}</td>
-            </tr>
-        `
-    }
+// // ###########################initiate the request###########################
+// let request = new XMLHttpRequest
+// request.open("GET","https://jsonplaceholder.typicode.com/posts")
+// request.responseType = "json"
+// request.send()
+// request.onload = function(){
+//     data = request.response
+//     data2 = data
+//     filltable()
+// }
 
 
-    tbody.innerHTML = table
-}
+// // ###################################################
+
+// function filltable(){
+//     let table = ``;
+//     for(post of data2){
+//         table+= `
+//             <tr>
+//                 <td>${post.id}</td>
+//                 <td>${post.title}</td>
+//                 <td>${post.body}</td>
+//             </tr>
+//         `
+//     }
+
+
+//     tbody.innerHTML = table
+// }
 
 
 
