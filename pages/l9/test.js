@@ -47,7 +47,7 @@ function postreq() {
 
 // ############## update request #####################
 function putreq(){
-    let request = new XMLHttpRequest;
+    let request = new XMLHttpRequest();
     request.open("PUT","https://jsonplaceholder.typicode.com/posts/1")
     request.responseType = "json"
     request.setRequestHeader("Content-type", "application/json")
@@ -61,4 +61,17 @@ function putreq(){
         console.log(request.status)
     }
 }
-putreq();
+
+// ################### delete request ##################
+
+function deletereq(){
+    let request = new XMLHttpRequest();
+    request.open("DELETE","https://jsonplaceholder.typicode.com/posts/1")
+    request.responseType = "json"
+    request.send();
+    request.onload = () => { 
+        console.log(request.response)
+        console.log(request.status)
+     }
+}
+deletereq()
