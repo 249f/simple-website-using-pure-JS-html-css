@@ -10,7 +10,7 @@ function getusers() {
         sidenav.innerHTML = ``
         for (user of users) {
             sidenav.innerHTML += `
-          <div onClick = "getposts(${user.id})">
+          <div onClick = "userclicked(${user.id}, this)">
                 <h1>${user.name}</h1>
                 <p>${user.email}</p>
             </div>
@@ -40,6 +40,20 @@ function getposts(id) {
 
     }
 }
+
+function userclicked(id,div){
+getposts(id)
+
+// remove active class from other users cards
+let notActiveDivs = document.getElementsByClassName("active")
+for(d of notActiveDivs) {
+    d.classList.remove("active")
+}
+
+// add active class to the clicked card
+ div.classList.add("active")
+}
+
 getusers()
 
 // call the first user's posts to fill the empty space on load

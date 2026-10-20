@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
 }
+
 .holder{
     display: flex;
     justify-content: space-between;
@@ -33,4 +34,9 @@
 }
 #render{
     width: 100%;
+}
+#sidenav .active {
+      background-color: rgb(97, 0, 207);
+      color: white;
+  
 }
