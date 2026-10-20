@@ -1,13 +1,12 @@
 let sidenav = document.getElementById("sidenav");
 let render = document.getElementById("render");
 function getusers() {
-    let users = []
     let request = new XMLHttpRequest()
     request.open("GET", "https://jsonplaceholder.typicode.com/users")
     request.responseType = "json"
     request.send()
     request.onload = function () {
-        users = request.response
+        let users = request.response
         sidenav.innerHTML = ``
         for (user of users) {
             sidenav.innerHTML += `
@@ -20,7 +19,7 @@ function getusers() {
     }
 }
 
-getusers()
+
 function getposts(id) {
     let request = new XMLHttpRequest()
     request.open("GET", `https://jsonplaceholder.typicode.com/posts?userId=${id}`)
@@ -41,3 +40,7 @@ function getposts(id) {
 
     }
 }
+getusers()
+
+// call the first user's posts to fill the empty space on load
+getposts(1)
