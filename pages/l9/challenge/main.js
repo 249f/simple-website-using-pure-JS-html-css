@@ -6,7 +6,8 @@ function getusers() {
     request.responseType = "json"
     request.send()
     request.onload = function () {
-        let users = request.response
+        if (request.status >= 200 && request.status <300){
+              let users = request.response
         sidenav.innerHTML = ``
         for (user of users) {
             sidenav.innerHTML += `
@@ -16,6 +17,11 @@ function getusers() {
             </div>
         `
         }
+        }
+        else{
+            alert("failed to get users")
+        }
+      
     }
 }
 
@@ -26,7 +32,8 @@ function getposts(id) {
     request.responseType = "json"
     request.send()
     request.onload = function () {
-        let posts = request.response
+        if (request.status >= 200 && request.status <300){
+            let posts = request.response
         render.innerHTML = ``
         for (post of posts) {
             render.innerHTML += `
@@ -37,8 +44,14 @@ function getposts(id) {
             
             `
         }
+        }
+        else{
+            alert("failed to get posts")
+        }
+        
 
     }
+
 }
 
 function userclicked(id,div){
