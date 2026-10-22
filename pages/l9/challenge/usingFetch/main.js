@@ -13,7 +13,6 @@ function getusers() {
                 <h1>${user.name}</h1>
                 <p>${user.email}</p>
             </div>
-        
         `
     }
     sidenav.innerHTML = usersHolder
@@ -22,28 +21,23 @@ function getusers() {
 
 }
 
-function getposts(id) {
-    let request = new XMLHttpRequest()
-    request.open("GET", `https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-    request.responseType = "json"
-    request.send()
-    request.onload = function () {
-        if (request.status >= 200 && request.status < 300) {
-            let posts = request.response
-            render.innerHTML = ``
-            for (post of posts) {
-                render.innerHTML += `
-             <div>
-                <h1>${post.title}</h1>
-                <p>${post.body}</p>
+function getposts(id){
+    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
+    .then(response => response.json())
+    .then((response) => {
+        let posts
+        posts = response
+        let postsHolder = ``
+        for(post of posts){
+            postsHolder += `
+               <div>
+               <h1>${post.title}</h1>
+               <p>${post.body}</p>
             </div>
             `
-            }
+            render.innerHTML = postsHolder
         }
-        else {
-            alert("failed to get posts")
-        }
-    }
+    })
 }
 
 function userclicked(id, div) {
