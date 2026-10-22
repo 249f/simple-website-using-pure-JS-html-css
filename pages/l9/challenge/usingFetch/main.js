@@ -1,11 +1,20 @@
 let sidenav = document.getElementById("sidenav");
 let render = document.getElementById("render");
 function getusers() {
+    return new Promise ((resolve,reject) => {
     let users;
     fetch("https://jsonplaceholder.typicode.com/users")
-        .then(response => response.json())
-        .then((response) => {
-            users = response
+        .then(response => {
+           if(response.ok){
+            return response.json()
+
+           }
+           else{
+            reject("couldn't get users")
+           }
+        })
+        .then(response => {
+                 users = response
             let usersHolder = ``
             for (user of users) {
                 usersHolder += `
@@ -16,8 +25,11 @@ function getusers() {
                 `
             }
             sidenav.innerHTML = usersHolder
+
+            resolve()
+           
         })
-}
+      })}
 
 function getposts(id) {
     fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
@@ -51,19 +63,25 @@ function userclicked(id, div) {
     div.classList.add("active")
 }
 
-new Promise((resolve) => {
-// getusers()
-
-// using setTimeout to make sure users posts comes after users
-setTimeout(() => {
-    getusers()
-    resolve()
-},2000)
-
-}).then(() => {
-// call the first user's posts to fill the empty space on load
-getposts(1)
+getusers()
+.then(() => {
+    getposts(1)
 })
+.catch((err) => alert(err))
+
+// new Promise((resolve) => {
+// // getusers()
+
+// // using setTimeout to make sure users posts comes after users
+// setTimeout(() => {
+//     getusers()
+//     resolve()
+// },2000)
+
+// }).then(() => {
+// // call the first user's posts to fill the empty space on load
+// getposts(1)
+// })
 
 
 
