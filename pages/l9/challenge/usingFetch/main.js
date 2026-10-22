@@ -17,8 +17,6 @@ function getusers() {
             }
             sidenav.innerHTML = usersHolder
         })
-
-
 }
 
 function getposts(id) {
@@ -53,7 +51,19 @@ function userclicked(id, div) {
     div.classList.add("active")
 }
 
-getusers()
+new Promise((resolve) => {
+// getusers()
 
+// using setTimeout to make sure users posts comes after users
+setTimeout(() => {
+    getusers()
+    resolve()
+},2000)
+
+}).then(() => {
 // call the first user's posts to fill the empty space on load
 getposts(1)
+})
+
+
+
