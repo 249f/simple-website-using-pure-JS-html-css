@@ -1,0 +1,22 @@
+{
+  "name": "simple-website-using-pure-js-html-css",
+  "version": "1.0.0",
+  "description": "just a small project to get used to api , you might need to use a VPN to get proper results, since JSONplaceholder isn't available for some regions (including Sudan)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/249f/simple-website-using-pure-JS-html-css.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/249f/simple-website-using-pure-JS-html-css/issues"
+  },
+  "homepage": "https://github.com/249f/simple-website-using-pure-JS-html-css#readme",
+  "dependencies": {
+    "axios": "^1.20.0"
+  }
+}
