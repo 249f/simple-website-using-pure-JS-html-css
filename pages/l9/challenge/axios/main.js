@@ -3,7 +3,7 @@ let render = document.getElementById("render");
 
 function userclicked(id, div) {
     getPostsByAxios(id)
-    .catch(err => alert(err))
+        .catch(err => alert(err))
 
     // remove active class from other users cards
     let notActiveDivs = document.getElementsByClassName("active")
@@ -19,65 +19,49 @@ function getUsersByAxios() {
     return new Promise((resolve, reject) => {
         axios.get("https://jsonplaceholder.typicode.com/users")
             .then(response => {
-
                 let users = response.data
                 let usersHolder = ``
                 for (user of users) {
                     usersHolder += `
-                <div onClick = "userclicked(${user.id}, this)">
-                    <h1>${user.name}</h1>
-                    <p>${user.email}</p>
-                </div>
-                `
+                    <div onClick = "userclicked(${user.id}, this)">
+                        <h1>${user.name}</h1>
+                        <p>${user.email}</p>
+                    </div>
+                    `
                 }
                 sidenav.innerHTML = usersHolder
                 resolve()
-
-
             })
             .catch((err) => {
                 reject(err)
             })
     })
-
-
 }
 
-function getPostsByAxios (id){
-return new Promise((resolve, reject) => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-    .then(response => {
-        let posts = response.data
-        let postsHolder = ``
-            for (post of posts) {
-                postsHolder += `
+function getPostsByAxios(id) {
+    return new Promise((resolve, reject) => {
+        axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
+            .then(response => {
+                let posts = response.data
+                let postsHolder = ``
+                for (post of posts) {
+                    postsHolder += `
                 <div>
                 <h1>${post.title}</h1>
                 <p>${post.body}</p>
                 </div>
                 `
-                render.innerHTML = postsHolder
-                resolve()
-            }
-
-
-
+                    render.innerHTML = postsHolder
+                    resolve()
+                }
+            })
+            .catch(err => reject(err))
     })
-    .catch(err => reject(err))
-})
 }
 
 getUsersByAxios()
     .then(() => {
         getPostsByAxios(1)
-        .catch(err => alert(err))
+            .catch(err => alert(err))
     })
     .catch(err => alert(err))
-
-
-
-
-
-
-
-
