@@ -1,35 +1,5 @@
 let sidenav = document.getElementById("sidenav");
 let render = document.getElementById("render");
-function getusers() {
-    return new Promise ((resolve,reject) => {
-    let users;
-    fetch("https://jsonplaceholder.typicode.com/users")
-        .then(response => {
-           if(response.ok){
-            return response.json()
-
-           }
-           else{
-            reject("couldn't get users")
-           }
-        })
-        .then(response => {
-                 users = response
-            let usersHolder = ``
-            for (user of users) {
-                usersHolder += `
-                <div onClick = "userclicked(${user.id}, this)">
-                    <h1>${user.name}</h1>
-                    <p>${user.email}</p>
-                </div>
-                `
-            }
-            sidenav.innerHTML = usersHolder
-
-            resolve()
-           
-        })
-      })}
 
 function getposts(id) {
     fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
@@ -63,25 +33,43 @@ function userclicked(id, div) {
     div.classList.add("active")
 }
 
-getusers()
-.then(() => {
-    getposts(1)
-})
-.catch((err) => alert(err))
+function getUsersByAxios() {
+    return new Promise((resolve, reject) => {
+        axios.get("https://jsonplaceholder.typicode.com/users")
+            .then(response => {
 
-// new Promise((resolve) => {
-// // getusers()
+                let users = response.data
+                let usersHolder = ``
+                for (user of users) {
+                    usersHolder += `
+                <div onClick = "userclicked(${user.id}, this)">
+                    <h1>${user.name}</h1>
+                    <p>${user.email}</p>
+                </div>
+                `
+                }
+                sidenav.innerHTML = usersHolder
+                resolve()
 
-// // using setTimeout to make sure users posts comes after users
-// setTimeout(() => {
-//     getusers()
-//     resolve()
-// },2000)
 
-// }).then(() => {
-// // call the first user's posts to fill the empty space on load
-// getposts(1)
-// })
+            })
+            .catch((err) => {
+                reject(err)
+            })
+    })
+
+
+}
+getUsersByAxios()
+    .then(() => {
+        getposts(1)
+    })
+    .catch(err => alert(err))
+
+
+
+
+
 
 
 
