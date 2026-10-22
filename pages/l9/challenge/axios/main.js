@@ -1,51 +1,53 @@
 let sidenav = document.getElementById("sidenav");
 let render = document.getElementById("render");
 function getusers() {
-    let request = new XMLHttpRequest()
-    request.open("GET", "https://jsonplaceholder.typicode.com/users")
-    request.responseType = "json"
-    request.send()
-    request.onload = function () {
-        if (request.status >= 200 && request.status < 300) {
-            let users = request.response
-            sidenav.innerHTML = ``
+    return new Promise ((resolve,reject) => {
+    let users;
+    fetch("https://jsonplaceholder.typicode.com/users")
+        .then(response => {
+           if(response.ok){
+            return response.json()
+
+           }
+           else{
+            reject("couldn't get users")
+           }
+        })
+        .then(response => {
+                 users = response
+            let usersHolder = ``
             for (user of users) {
-                sidenav.innerHTML += `
+                usersHolder += `
                 <div onClick = "userclicked(${user.id}, this)">
-                <h1>${user.name}</h1>
-                <p>${user.email}</p>
+                    <h1>${user.name}</h1>
+                    <p>${user.email}</p>
                 </div>
                 `
             }
-        }
-        else {
-            alert("failed to get users")
-        }     
-    }
-}
+            sidenav.innerHTML = usersHolder
+
+            resolve()
+           
+        })
+      })}
 
 function getposts(id) {
-    let request = new XMLHttpRequest()
-    request.open("GET", `https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-    request.responseType = "json"
-    request.send()
-    request.onload = function () {
-        if (request.status >= 200 && request.status < 300) {
-            let posts = request.response
-            render.innerHTML = ``
+    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
+        .then(response => response.json())
+        .then((response) => {
+            let posts
+            posts = response
+            let postsHolder = ``
             for (post of posts) {
-                render.innerHTML += `
-             <div>
+                postsHolder += `
+                <div>
                 <h1>${post.title}</h1>
                 <p>${post.body}</p>
-            </div>
-            `
+                </div>
+                `
+                render.innerHTML = postsHolder
             }
-        }
-        else {
-            alert("failed to get posts")
-        }
-    }
+        })
 }
 
 function userclicked(id, div) {
@@ -62,6 +64,24 @@ function userclicked(id, div) {
 }
 
 getusers()
+.then(() => {
+    getposts(1)
+})
+.catch((err) => alert(err))
 
-// call the first user's posts to fill the empty space on load
-getposts(1)
+// new Promise((resolve) => {
+// // getusers()
+
+// // using setTimeout to make sure users posts comes after users
+// setTimeout(() => {
+//     getusers()
+//     resolve()
+// },2000)
+
+// }).then(() => {
+// // call the first user's posts to fill the empty space on load
+// getposts(1)
+// })
+
+
+
