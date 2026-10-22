@@ -1,27 +1,25 @@
 let sidenav = document.getElementById("sidenav");
 let render = document.getElementById("render");
 function getusers() {
-    let request = new XMLHttpRequest()
-    request.open("GET", "https://jsonplaceholder.typicode.com/users")
-    request.responseType = "json"
-    request.send()
-    request.onload = function () {
-        if (request.status >= 200 && request.status < 300) {
-            let users = request.response
-            sidenav.innerHTML = ``
-            for (user of users) {
-                sidenav.innerHTML += `
-                <div onClick = "userclicked(${user.id}, this)">
+    let users;
+ fetch("https://jsonplaceholder.typicode.com/users")
+ .then(response => response.json())
+ .then ((response) => {
+    users = response
+    let usersHolder = ``
+    for (user of users){
+        usersHolder += `
+         <div onClick = "userclicked(${user.id}, this)">
                 <h1>${user.name}</h1>
                 <p>${user.email}</p>
-                </div>
-                `
-            }
-        }
-        else {
-            alert("failed to get users")
-        }     
+            </div>
+        
+        `
     }
+    sidenav.innerHTML = usersHolder
+ })
+ 
+
 }
 
 function getposts(id) {
