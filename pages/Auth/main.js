@@ -37,5 +37,5 @@ function login(email,password){
 }
 
 function loginSuccess(){
-    location.href = "file:///E:/learn/simple%20website%20using%20pure%20JS%20html%20css/pages/Auth/success.html"
+    location = "success.html"
 }
