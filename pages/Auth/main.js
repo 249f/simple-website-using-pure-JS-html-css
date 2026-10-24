@@ -24,6 +24,7 @@ function login(email,password){
     .then((response) => {
         console.log(response.data);
         loginSuccess()
+        localStorage.lstatus = true
     })
     .catch((err) => {
        

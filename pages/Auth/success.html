@@ -7,5 +7,16 @@
 </head>
 <body>
     <h1>welcome you made it</h1>
+    <button onclick="signOut()">sign out</button>
+    <script>
+        if (localStorage.lstatus != "true"){
+            location.href = "file:///E:/learn/simple%20website%20using%20pure%20JS%20html%20css/pages/Auth/index.html"
+        }
+        function signOut(){
+            localStorage.lstatus = false;
+            
+        }
+    </script>
 </body>
+
 </html>
