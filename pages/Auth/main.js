@@ -22,14 +22,16 @@ function login(email,password){
     "password" : `${password}`
 })
     .then((response) => {
-        console.log(response.data);
+        console.log(response.data.token);
+        localStorage.token2 = response.data.token
         loginSuccess()
         localStorage.lstatus = true
     })
     .catch((err) => {
        
         console.log(err);
-        alert(err)
+        console.log(err.response.data.error);
+        alert(err.response.data.error);
     
     })
 }
