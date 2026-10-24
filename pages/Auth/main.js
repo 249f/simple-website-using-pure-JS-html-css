@@ -1,26 +1,22 @@
-function login() {
-    axios.post("https://reqres.in/api/register", {
-        "email": "eve.holt@reqres.in",
-        "password": "pistol"
-    })
-        .then((response) => {
-            let x = response.data
-            localStorage.token = x.token
-            createUser()
-        }).catch((err => alert(err)))
-}
 
-function createUser() {
-    axios.post("https://reqres.in/api/users", {
-        "email": "eve.holt@reqres.in",
-        "password": "pistol"
-    }, {
-        headers: {
-            Authorization: `${localStorage.token}`
-        }
-    }).then((response) => {
-        console.log(response);
+let emailInput = document.getElementById("emailInput")
+let passwordInput = document.getElementById("passwordInput")
+let submit = document.getElementById("submit")
 
-    })
+let userEmail
+let userPassword
+submit.onclick = () => {
+   userEmail = emailInput.value
+   userPassword = passwordInput.value
+   login(userEmail,userPassword)
 }
-login()
+function login(email,password){
+    axios.post("https://reqres.in/api/login",{
+    "email" : `${email}`,
+    "password" : `${password}`
+})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((err) => {alert(err)})
+}
