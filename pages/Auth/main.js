@@ -6,7 +6,6 @@ function login() {
         .then((response) => {
             let x = response.data
             localStorage.token = x.token
-            console.log(localStorage.token);
             createUser()
         }).catch((err => alert(err)))
 }
